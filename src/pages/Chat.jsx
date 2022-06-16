@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../utils/APIRoute";
+import { allUsersRoute, host, host1 } from "../utils/APIRoute";
 import axios from "axios";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
@@ -29,9 +29,9 @@ function Chat() {
     getContacts();
   }, []);
 
-  useRef(() => {
+  useEffect(() => {
     if (currentUser) {
-      socket.current = io(host);
+      socket.current = io(host1);
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);

@@ -1,4 +1,4 @@
-//export const host = "http://localhost:3001";
+export const host = "http://localhost:3001";
 export const host1 = "https://chat-brhyant.onrender.com";
 export const registerRoute = `${host1}/api/auth/register`;
 export const loginRoute = `${host1}/api/auth/login`;
