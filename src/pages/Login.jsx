@@ -112,7 +112,7 @@ function Login() {
             buttonText="Login"
             onSuccess={onSucces}
             onFailure={onFailure}
-            cookiePolicy={"single_host_policy"}
+            cookiePolicy={"single_host_origin"}
           />
           <span>
             Don't have an account? <Link to="/register">Register.</Link>
