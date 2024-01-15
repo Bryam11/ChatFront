@@ -20,6 +20,8 @@ function Register() {
         confirmPassword: "",
     });
 
+    const [isLoading, setIsLoading] = useState(true);
+
 
     const toastOptions = {
         position: "bottom-right",
@@ -39,6 +41,7 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidations()) {
+      setIsLoading(true);
         const {password, confirmPassword, username, email} = values;
         const {data} =  await axios.post(registerRoute, {
             username,
@@ -46,9 +49,11 @@ function Register() {
             email,
         });
         if(data.status === false){
+            setIsLoading(false);
             toast.error(data.msg, toastOptions);
         }
         if (data.status === true) {
+            setIsLoading(false);
             localStorage.setItem('chat-app-user', JSON.stringify(data.user));
             navigate("/");
         }
@@ -85,6 +90,10 @@ function Register() {
 
   return (
     <>
+    {
+     isLoading ? <Container>
+                    <img src={loader} alt="" className="loader"></img>
+                </Container> : (
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
@@ -121,6 +130,8 @@ function Register() {
           </span>
         </form>
       </FormContainer>
+       )
+      }
       <ToastContainer />
     </>
   );

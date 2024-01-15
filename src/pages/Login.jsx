@@ -7,9 +7,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../utils/APIRoute";
-import { gapi } from "gapi-script";
-import GoogleLogin from "react-google-login";
-
 function Login() {
   const navigate = useNavigate();
 
@@ -19,8 +16,10 @@ function Login() {
     password: "",
   });
 
-  const cliendId =
-    "981802241550-8o0imemmt8lareodh1vvijfbkft8vt51.apps.googleusercontent.com";
+  // variable para el logueo del usuario
+  const [isLoading, setIsLoading] = useState(true);
+
+
 
   const toastOptions = {
     position: "bottom-right",
@@ -35,17 +34,12 @@ function Login() {
     if (localStorage.getItem("chat-app-user")) {
       navigate("/");
     }
-    const start = () => {
-      gapi.auth2.init({
-        client_id: cliendId,
-      });
-      gapi.load("client:auth2", start);
-    };
   }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidations()) {
+      setIsLoading(true);
       const { password, username } = values;
       const { data } = await axios.post(loginRoute, {
         username,
@@ -53,9 +47,11 @@ function Login() {
       });
 
       if (data.status === false) {
+        setIsLoading(false);
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
+        setIsLoading(false);
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
         navigate("/");
       }
@@ -77,16 +73,14 @@ function Login() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const onSucces = (res) => {
-    console.log(res);
-  };
 
-  const onFailure = (res) => {
-    console.log(res);
-  };
 
   return (
     <>
+{
+                isLoading ? <Container>
+                    <img src={loader} alt="" className="loader"></img>
+                </Container> : (
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
@@ -107,20 +101,16 @@ function Login() {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit">Login</button>
-          <GoogleLogin
-            clientId={cliendId}
-            buttonText="Login"
-            onSuccess={onSucces}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-          />
           <span>
             Don't have an account? <Link to="/register">Register.</Link>
           </span>
         </form>
 
       </FormContainer>
+                )
+}
       <ToastContainer />
+
     </>
   );
 }
