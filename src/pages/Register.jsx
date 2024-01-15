@@ -7,6 +7,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoute";
+import Loading from "../utils/loading";
 
 function Register() {
 
@@ -90,7 +91,7 @@ function Register() {
 
   return (
     <>
-
+      <Loading isLoading={isLoading} />
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
