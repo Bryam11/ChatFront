@@ -7,7 +7,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoute";
-import Loading from "../utils/loading";
 
 function Register() {
 
@@ -91,7 +90,16 @@ function Register() {
 
   return (
     <>
-      <Loading isLoading={isLoading} />
+    { 
+        isLoading && (
+            <div className="loader">
+                <div className="loader-container">
+                    <div className="loader-circle"></div>
+                    <div className="loader-circle"></div>
+                </div>
+            </div>
+        )
+    }
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
@@ -197,6 +205,28 @@ span {
     color: #4e0eff;
     text-decoration: none;
     font-weight: bold;
+  }
+}
+loader {
+  height: 100vh;
+  width: 100vw;
+  background-color: #131324;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loader-container {
+    display: flex;
+    gap: 1rem;
+    .loader-circle {
+      height: 1rem;
+      width: 1rem;
+      background-color: #4e0eff;
+      border-radius: 50%;
+      animation: loader 0.5s infinite alternate;
+      &:nth-child(2) {
+        animation-delay: 0.5s;
+      }
+    }
   }
 }
 `;
