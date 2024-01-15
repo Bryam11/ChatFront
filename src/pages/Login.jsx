@@ -17,7 +17,7 @@ function Login() {
   });
 
   // variable para el logueo del usuario
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
 
 
