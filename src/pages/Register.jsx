@@ -90,10 +90,7 @@ function Register() {
 
   return (
     <>
-    {
-     isLoading ? <Container>
-                    <img src={loader} alt="" className="loader"></img>
-                </Container> : (
+
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
@@ -130,8 +127,6 @@ function Register() {
           </span>
         </form>
       </FormContainer>
-       )
-      }
       <ToastContainer />
     </>
   );

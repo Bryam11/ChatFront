@@ -77,10 +77,7 @@ function Login() {
 
   return (
     <>
-{
-                isLoading ? <Container>
-                    <img src={loader} alt="" className="loader"></img>
-                </Container> : (
+    <Loading isLoading={isLoading} />
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
@@ -107,8 +104,7 @@ function Login() {
         </form>
 
       </FormContainer>
-                )
-}
+
       <ToastContainer />
 
     </>
